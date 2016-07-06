@@ -30,7 +30,9 @@ server.get('/doves/:id', function(request, response){
 server.post('/doves', function(request, response){
   var todo = {
   id: uuid.v4(),
-  description: request.body.description,
+  typeofDove: request.body.typeofDove,
+  canfly: request.body.canfly,
+  hasanest: request.body.hasanest,
   isComplete: false
 };
 
@@ -52,7 +54,7 @@ server.put('/doves/:id', function(request, response){
   var updatedDove = db.get('dove')
                       .assign(dove)
                       .value();
-  response.send(updatedDove)
+  response.send(updatedDove);
 });
 
 server.delete('/doves/:id', function(request, response){
