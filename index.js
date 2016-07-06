@@ -8,6 +8,9 @@ var port = process.env.PORT || 8080;
 var db = lowdb('db.json');
 
 
+db.defaults({doves: []})
+  .value();
+
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 
@@ -17,7 +20,7 @@ server.get('/doves', function(request, response){
   response.send(doves)
   });
 
-server.get('/doves/id:', functon(request, response){
+server.get('/doves/:id', function(request, response){
   var doves = db.get('doves')
                 .find({id: request.params.id})
                 .value();
@@ -38,9 +41,11 @@ var result = db.get('doves')
 response.send(result);
 });
 
-server.put('/doves/id:', function(request, response){
+server.put('/doves/:id', function(request, response){
   var updatedDovesInfo = {
-    description: request.body.description,
+    typeofDove: request.body.typeofDove,
+    canfly: request.body.canfly,
+    hasanest: request.body.hasanest,
     isComplete: request.body.isComplete
   };
 
@@ -50,7 +55,7 @@ server.put('/doves/id:', function(request, response){
   response.send(updatedDove)
 });
 
-server.delete('/doves/id:', function(request, response){
+server.delete('/doves/:id', function(request, response){
   var doves = db.get(doves)
                 .remove({id: request.params.id})
                 .value();
