@@ -3,7 +3,10 @@ var bodyParser = require('body-parser');
 var lowdb = require('lowdb');
 var uuid = require('uuid');
 var server = express();
-console.log('running');
+
+//import my model
+var Dove = require('./models/dove.js');
+
 var port = process.env.PORT || 8080;
 var db = lowdb('db.json');
 
@@ -28,35 +31,21 @@ server.get('/doves/:id', function(request, response){
 });
 
 server.post('/doves', function(request, response){
-  var todo = {
-  id: uuid.v4(),
-  typeofDove: request.body.typeofDove,
-  canfly: request.body.canfly,
-  hasanest: request.body.hasanest,
-  isComplete: false
-};
-
-var result = db.get('doves')
+  var dove = new Dove(request.body.type, request.body.canFly, request.body.hasNest, request.body.color);
+  var result = db.get('doves')
                .push(dove)
                .last()
                .value();
-response.send(result);
+  response.send(result);
 });
 
 server.put('/doves/:id', function(request, response){
-  var updatedDovesInfo = {
-    typeofDove: request.body.typeofDove,
-    canfly: request.body.canfly,
-    hasanest: request.body.hasanest,
-    isComplete: request.body.isComplete
-  };
-
+  var dove = new Dove(request.body.type, request.body.canFly, request.body.hasNest, request.body.color, request.params.id);
   var updatedDove = db.get('dove')
                       .assign(dove)
                       .value();
   response.send(updatedDove);
 });
-
 server.delete('/doves/:id', function(request, response){
   var doves = db.get(doves)
                 .remove({id: request.params.id})
