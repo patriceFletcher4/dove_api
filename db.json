@@ -1,4 +1,18 @@
 {
-  "doves": [    
+  "doves": [
+    {
+      "type": "my dove work",
+      "canFly": "broken wings",
+      "hasNest": false,
+      "color": "white",
+      "id": "05c810bd-35d8-432d-9860-766e0bef6017"
+    },
+    {
+      "type": "turtle dove",
+      "canFly": "newborn",
+      "hasNest": false,
+      "color": "purple",
+      "id": "685ce023-b2a5-4184-843f-c86f166d3b77"
+    }
   ]
 }

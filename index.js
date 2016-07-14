@@ -18,7 +18,7 @@ server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
 
 server.get('/doves', function(request, response){
-  var dove = db.get('doves')
+  var doves = db.get('doves')
               .value();
   response.send(doves)
   });
