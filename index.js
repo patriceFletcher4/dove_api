@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var lowdb = require('lowdb');
 var uuid = require('uuid');
 var server = express();
+var cors = require('cors');
 
 //import my model
 var Dove = require('./models/dove.js');
@@ -16,6 +17,7 @@ db.defaults({doves: []})
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({extended: true}));
+server.use(cors());
 
 server.get('/doves', function(request, response){
   var doves = db.get('doves')
